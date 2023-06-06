@@ -258,25 +258,21 @@ class TwilioVoice: FlutterPlugin, ActivityAware {
         val accessToken: String = call.argument<String>("accessToken") ?: return result.error("ERROR", "Missing accessToken", null)
         val to: String = call.argument<String>("To") ?: return result.error("ERROR", "Missing To", null)
         val from: String = call.argument<String>("from") ?: return result.error("ERROR", "Missing from", null)
-        val workspaceSid: String = call.argument<String>("workspaceSid") ?: return result.error("ERROR", "Missing workspaceSid", null)
-        val channelSid: String = call.argument<String>("channelSid") ?: return result.error("ERROR", "Missing channelSid", null)
-        val agentId: String = call.argument<String>("agentId") ?: return result.error("ERROR", "Missing agentId", null)
+        val workspace: String = call.argument<String>("Workspace") ?: return result.error("ERROR", "Missing Workspace", null)
+        val fromPhone: String = call.argument<String>("FromPhone") ?: return result.error("ERROR", "Missing FromPhone", null)
 
         Log.d(TAG, "makeCall ${accessToken}")
         Log.d(TAG, "makeCall ${to}")
         Log.d(TAG, "makeCall ${from}")
-        Log.d(TAG, "makeCall ${workspaceSid}")
-        Log.d(TAG, "makeCall ${channelSid}")
-        Log.d(TAG, "makeCall ${agentId}")
+        Log.d(TAG, "makeCall ${workspace}")
+        Log.d(TAG, "makeCall ${fromPhone}")
         try
         {
             val params = HashMap<String, String>()
             params["To"] = to
             params["From"] = from
-            params["workspace_sid"] = workspaceSid
-            params["channel_sid"] = channelSid
-            params["agent_id"] = agentId
-            params["platform"] = "mobile"
+            params["Workspace"] = workspace
+            params["FromPhone"] = fromPhone
 
             val connectOptions = ConnectOptions.Builder(accessToken)
                     .params(params)
