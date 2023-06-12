@@ -100,6 +100,7 @@ class TwilioVoice: FlutterPlugin, ActivityAware {
         })
 
         handleMessageChannel = EventChannel(messenger, "TwilioVoice/handleMessage")
+
         handleMessageChannel.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
                 Log.d(TAG, "onListen: TwilioVoice.onAttachedToEngine => handleMessage eventChannel attached")
