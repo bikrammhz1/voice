@@ -5,6 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.voice.iml" filepath="$PROJECT_DIR$/.idea/modules/android.voice.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.flutter.twilio.voice.voice.iml" filepath="$PROJECT_DIR$/.idea/modules/com.flutter.twilio.voice.voice.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/voice.iml" filepath="$PROJECT_DIR$/.idea/modules/voice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/voice.android.voice.iml" filepath="$PROJECT_DIR$/.idea/modules/voice.android.voice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/voice.android.voice.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/voice.android.voice.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/voice.android.voice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/voice.android.voice.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/voice.android.voice.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/voice.android.voice.unitTest.iml" />
     </modules>
   </component>
 </project>
