@@ -267,28 +267,16 @@ public class SwiftTwilioVoice: NSObject, FlutterPlugin, AVAudioPlayerDelegate{
         print("Twilio Voice: Arguments for makCall2")
 
         guard let callFrom = arguments["from"] as? String else { return result(FlutterError(code: "MISSING_PARAMS", message: "Missing 'from' parameter", details: nil))}
-
         print("Twilio Voice: Arguments for makCall3")
 
-        guard let workspaceSid = arguments["workspaceSid"] as?String else { return result(FlutterError(code: "MISSING_PARAMS", message: "Missing 'workspaceSid' parameter", details: nil))}
+        guard let workspaceSid = arguments["Workspace"] as?String else { return result(FlutterError(code: "MISSING_PARAMS", message: "Missing 'workspace' parameter", details: nil))}
         print("Twilio Voice: Arguments for makCall4")
-
-
-        guard  let  channelSid = arguments["channelSid"] as?String else{ return result(FlutterError(code: "MISSING_PARAMS", message: "Missing 'channelSid' parameter", details: nil))}
-
-        print("Twilio Voice: Arguments for makCall5")
-
-        guard  let  agentId = arguments["agentId"] as?String else{ return result(FlutterError(code: "MISSING_PARAMS", message: "Missing 'channelSid' parameter", details: nil))}
-
-        print("Twilio Voice: Arguments for makCall6")
-
-
-        let connectOptions = ConnectOptions(accessToken: accessToken) { builder in
+        
+        let connectOptions = ConnectOptions(accessToken: accessToken) { builder in            
             builder.params = ["To": callTo,
                               "From":callFrom,
-                              "workspace_sid":workspaceSid,
-                              "channel_sid":channelSid,
-                              "agent_id": agentId ]
+                              "Workspace":workspaceSid, 
+                              "FromPhone": callFrom ]
         }
 
         print("Twilio Voice: this is formated data" ,connectOptions);
