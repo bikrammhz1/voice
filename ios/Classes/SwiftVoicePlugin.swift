@@ -713,9 +713,10 @@ extension SwiftTwilioVoice: PKPushRegistryDelegate {
      */
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         //        self.sendPhoneCallEvents(description: "LOG|pushRegistry:didReceiveIncomingPushWithPayload:forType:", isError: false)
-        print("Twilio Voice: pushRegistry didReceiveIncomingPushWith")
+        print("Twilio Voice: pushRegistry didReceiveIncomingPushWith")        
+        print("payload ios", payload.dictionaryPayload)
         self.callOutgoing = false;
-        if (type == PKPushType.voIP) {
+        if (type == PKPushType.voIP) {            
             TwilioVoiceSDK.handleNotification(payload.dictionaryPayload, delegate: self, delegateQueue: nil)
         }
     }
@@ -729,7 +730,8 @@ extension SwiftTwilioVoice: PKPushRegistryDelegate {
         // Save for later when the notification is properly handled.
         //        self.incomingPushCompletionCallback = completion
 
-        print("Twilio Voice: pushRegistry didReceiveIncomingPushWith")
+        print("Twilio Voice: pushRegistry didReceiveIncomingPushWith")        
+        print("payload ios", payload.dictionaryPayload)
 
         self.callOutgoing = false;
         if (type == PKPushType.voIP) {
@@ -832,10 +834,11 @@ extension SwiftTwilioVoice: NotificationDelegate{
     // Call
 
     public func callInviteReceived(callInvite: CallInvite) {
-        print("Twilio Voice: This is incoming event",(callInvite.customParameters?["from"]! ?? "") as String)
+        print("ios call invite", callInvite.customParameters)
+        print("Twilio Voice: This is incoming event",(callInvite.customParameters?["clientPhoneNumber"]! ?? "") as String)
         activeCallInvite = callInvite
         sendEventHandleCall("onCallInvite",data:Mapper.callInviteToDict(callInvite),error:nil)
-        reportIncomingCall(from: (callInvite.customParameters?["from"]! ?? "") as String, uuid: callInvite.uuid)
+        reportIncomingCall(from: (callInvite.customParameters?["clientPhoneNumber"]! ?? "") as String, uuid: callInvite.uuid)
         self.activeCallInvite = callInvite
     }
 
