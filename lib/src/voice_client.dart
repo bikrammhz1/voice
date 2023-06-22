@@ -474,23 +474,23 @@ class VoiceClient {
         _isOnCall = true;
         print("this is data onCallInvite $data");
         var callSid = Platform.isIOS
-            ? data['data']['twi_call_sid'] == null
+            ? data['data']['callSid'] == null
                 ? null
-                : data['data']['twi_call_sid'] as String
+                : data['data']['callSid'] as String
             : data['data']['twi_call_sid'] == null
                 ? null
                 : data['data']['twi_call_sid'] as String;
         var to = Platform.isIOS
-            ? data['data']['twi_to'] == null
+            ? data['data']['to'] == null
                 ? null
-                : data['data']['twi_to'] as String
+                : data['data']['to'] as String
             : data['data']['twi_to'] == null
                 ? null
                 : data['data']['twi_to'] as String;
         var from = Platform.isIOS
-            ? data['data']['twi_from'] == null
+            ? data['data']['from'] == null
                 ? null
-                : data['data']['twi_from'] as String
+                : data['data']['from'] as String
             : data['data']['twi_from'] == null
                 ? null
                 : data['data']['twi_from'] as String;
@@ -499,7 +499,7 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
 
-        // assert(callSid != null);
+        assert(callSid != null);
         assert(to != null);
         assert(from != null);
         _onCallInvite
@@ -533,7 +533,7 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        // assert(callSid != null);
+        assert(callSid != null);
         assert(to != null);
         assert(from != null);
         _onCancelledCallInvite
@@ -543,23 +543,23 @@ class VoiceClient {
         _isOnCall = true;
         print("this is data onAnswerCall $data");
         var callSid = Platform.isIOS
-            ? data['data']['twi_call_sid'] == null
+            ? data['data']['callSid'] == null
                 ? null
-                : data['data']['twi_call_sid'] as String
+                : data['data']['callSid'] as String
             : data['data']['twi_call_sid'] == null
                 ? null
                 : data['data']['twi_call_sid'] as String;
         var to = Platform.isIOS
-            ? data['data']['twi_to'] == null
+            ? data['data']['to'] == null
                 ? null
-                : data['data']['twi_to'] as String
+                : data['data']['to'] as String
             : data['data']['twi_to'] == null
                 ? null
                 : data['data']['twi_to'] as String;
         var from = Platform.isIOS
-            ? data['data']['twi_from'] == null
+            ? data['data']['from'] == null
                 ? null
-                : data['data']['twi_from'] as String
+                : data['data']['from'] as String
             : data['data']['twi_from'] == null
                 ? null
                 : data['data']['twi_from'] as String;
@@ -567,7 +567,7 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        // assert(callSid != null);
+        assert(callSid != null);
         assert(to != null);
         assert(from != null);
         _onAnswerCall
@@ -734,7 +734,6 @@ class VoiceClient {
           Map<String, dynamic>.from(event['error'] as Map<dynamic, dynamic>);
       exception = ErrorInfo(errorMap['code'] as int, errorMap['message'], 0);
     }
-
     switch (eventName) {
       case 'onConnectFailure':
         print("this is data onConnectFailure $data");
