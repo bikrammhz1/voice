@@ -547,7 +547,7 @@ public class SwiftTwilioVoice: NSObject, FlutterPlugin, AVAudioPlayerDelegate{
     class CallIncomingHandler: NSObject, FlutterStreamHandler {
 
         func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-            debug("CallOutIncomingHandler.onListen => MediaProgress eventChannel attached")
+            debug("CallOutIncomingHandler.onListen => MediaProgress eventChannel attached")                          
             callIncomingSink = events
             return nil
         }
@@ -907,7 +907,7 @@ extension SwiftTwilioVoice: CallDelegate{
             sendEventOutGoingCall("onConnected",data:Mapper.callToDict(call), error: nil)
         }else {
             print("Twilio Voice: This is incoming event callDidConnect")
-//            sendEventIncomingCall("onConnected",data:Mapper.callToDict(call), error: nil)
+           sendEventIncomingCall("onConnected",data:Mapper.callToDict(call), error: nil)
         }
     }
     
