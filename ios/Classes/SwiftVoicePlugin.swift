@@ -593,7 +593,7 @@ public class SwiftTwilioVoice: NSObject, FlutterPlugin, AVAudioPlayerDelegate{
     //Notification registration event hadlers------------------------------------------------------
 
     private func sendNotificationEvent(_ name: String, data: [String: Any]? = nil, error: Error? = nil) {
-        let eventData = ["name": name, "data": data, "error": Mapper.errorToDict(error)] as [String: Any?]
+        let eventData = ["name": name, "data": data, "error": Mapper.errorToDict(error)] as [String: Any?]        
 
         if let notificationSink = SwiftTwilioVoice.notificationSink {
             notificationSink(eventData)
@@ -936,21 +936,21 @@ extension SwiftTwilioVoice: CallDelegate{
                 return
             }
             // DONE ending call start
-            let endCallAction = CXEndCallAction(call: id)
-            let transaction = CXTransaction(action: endCallAction)
-            callKitCallController.request(transaction) { error in
-                if let error = error {
-                    print("EndCallAction transaction request failed: \(error.localizedDescription).")
-                    self.callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
-                    return
-                }
+            // let endCallAction = CXEndCallAction(call: id)
+            // let endAllCallAction = CXE
+            // let transaction = CXTransaction(action: endCallAction)
+            // callKitCallController.request(transaction) { error in
+            //     if let error = error {
+            //         print("EndCallAction transaction request failed: \(error.localizedDescription).")
+            //         self.callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
+            //         return
+            //     }
 
-                print("EndCallAction transaction request successful")
-
-            }
+            //     print("EndCallAction transaction request successful")
+            // }
             // DONE ending call end
             // old below
-            //callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
+            callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
         }
     }
     
