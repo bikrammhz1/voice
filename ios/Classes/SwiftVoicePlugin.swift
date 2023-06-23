@@ -935,7 +935,22 @@ extension SwiftTwilioVoice: CallDelegate{
             guard let id = activeCall?.uuid else {
                 return
             }
-            callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
+            // DONE ending call start
+            let endCallAction = CXEndCallAction(call: id)
+            let transaction = CXTransaction(action: endCallAction)
+            callKitCallController.request(transaction) { error in
+                if let error = error {
+                    print("EndCallAction transaction request failed: \(error.localizedDescription).")
+                    self.callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
+                    return
+                }
+
+                print("EndCallAction transaction request successful")
+
+            }
+            // DONE ending call end
+            // old below
+            //callKitProvider.reportCall(with: id, endedAt: Date(), reason: .answeredElsewhere)
         }
     }
     
