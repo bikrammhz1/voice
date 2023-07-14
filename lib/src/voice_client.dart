@@ -34,7 +34,8 @@ class CallInvite {
 
   final Map<dynamic, dynamic>? error;
 
-  CallInvite(this.callSid, this.to, this.from, this.customParameters, this.error);
+  CallInvite(
+      this.callSid, this.to, this.from, this.customParameters, this.error);
 }
 
 class AnswerCall {
@@ -330,7 +331,8 @@ class VoiceClient {
     }
   }
 
-  Future<void> makeCallWithSid(String to, String from, String workspace, String token) async {
+  Future<void> makeCallWithSid(
+      String to, String from, String workspace, String token) async {
     try {
       await TwilioVoice._methodChannel
           .invokeMethod('makeCallWithSid', <String, Object>{
@@ -364,6 +366,15 @@ class VoiceClient {
   Future<void> mute() async {
     try {
       await TwilioVoice._methodChannel.invokeMethod('mute');
+    } on PlatformException catch (err) {
+      throw TwilioVoice._convertException(err);
+    }
+  }
+
+  Future<void> toggleSpeaker(bool isSpeakerOn) async {
+    try {
+      await TwilioVoice._methodChannel.invokeMethod(
+          'toggleSpeaker', <String, Object>{'isSpeakerOn': isSpeakerOn});
     } on PlatformException catch (err) {
       throw TwilioVoice._convertException(err);
     }
@@ -500,8 +511,8 @@ class VoiceClient {
         assert(callSid != null);
         assert(to != null);
         assert(from != null);
-        _onCallInvite.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _onCallInvite
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onCancelledCallInvite':
         _isOnCall = false;
@@ -534,8 +545,8 @@ class VoiceClient {
         assert(callSid != null);
         assert(to != null);
         assert(from != null);
-        _onCancelledCallInvite.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _onCancelledCallInvite
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onAnswerCall':
         _isOnCall = true;
@@ -568,8 +579,8 @@ class VoiceClient {
         assert(callSid != null);
         assert(to != null);
         assert(from != null);
-        _onAnswerCall.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _onAnswerCall
+            .add(CallInvite(callSid, to, from, customParameters, error));
         // print("this is data onAnswerCall $data");
         // _onAnswerCall.add(data.toString());
         break;
@@ -750,8 +761,8 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        _incomingConnectFailure.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _incomingConnectFailure
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onRinging':
         print("this is data onRinging $data");
@@ -768,8 +779,8 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        _incomingRinging.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _incomingRinging
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onConnected':
         _isOnCall = true;
@@ -787,8 +798,8 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        _incomingConnected.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _incomingConnected
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onReconnecting':
         print("this is data onReconnecting $data");
@@ -805,8 +816,8 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        _incomingReconnecting.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _incomingReconnecting
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onReconnected':
         print("this is data onReconnected $data");
@@ -823,8 +834,8 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-        _incomingReconnected.add(CallInvite(
-            callSid, to, from, customParameters, error));
+        _incomingReconnected
+            .add(CallInvite(callSid, to, from, customParameters, error));
         break;
       case 'onDisconnected':
         print("this is data onDisconnected $data");
@@ -872,14 +883,13 @@ class VoiceClient {
             ? null
             : data['data']['twi_params'] as Map<dynamic, dynamic>;
         var error = event['error'] != null ? event["error"] : null;
-          _incomingCallQualityWarningsChanged
-              .add(CallInvite("", "", "", {}, error));
+        _incomingCallQualityWarningsChanged
+            .add(CallInvite("", "", "", {}, error));
         break;
       default:
         break;
     }
   }
 
-  incomingCallMapper(StreamController<CallInvite> s){
-  }
+  incomingCallMapper(StreamController<CallInvite> s) {}
 }

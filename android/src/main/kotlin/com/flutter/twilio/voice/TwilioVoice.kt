@@ -13,6 +13,7 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.*
 import java.util.*
 import kotlin.concurrent.schedule
+import android.media.AudioManager
 
 /** TwilioVoice */
 
@@ -78,6 +79,7 @@ class TwilioVoice: FlutterPlugin, ActivityAware {
     }
 
     private fun onAttachedToEngine(applicationContext: Context, messenger: BinaryMessenger) {
+
         TwilioVoice.messenger = messenger
         TwilioVoice.applicationContext = applicationContext
 
@@ -539,6 +541,27 @@ class TwilioVoice: FlutterPlugin, ActivityAware {
     {
         val digit: String = call.argument<String>("digit") ?: return result.error("MISSING_PARAMS", "The parameter 'digit' was not given", null)
         activeCall?.sendDigits(digit)
+    }
+
+    fun toggleSpeaker( call : MethodCall, result: MethodChannel.Result)
+    {
+        try {
+            val isSpeakerOn: Boolean = call.argument<Boolean>("isSpeakerOn") ?: return result.error(
+                "MISSING_PARAMS",
+                "The parameter 'isSpeakerOn' was not given",
+                null
+            )
+            val audioManager: AudioManager = applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.setMode(AudioManager.MODE_IN_CALL)
+            audioManager.setSpeakerphoneOn(isSpeakerOn)
+
+
+        }
+        catch (error: Exception){
+        Log.d(TAG, "toogleSpeaker: " + error.message)
+
+        }// Enable speaker
+
     }
 
     fun registerForNotification(call: MethodCall, result: MethodChannel.Result)
